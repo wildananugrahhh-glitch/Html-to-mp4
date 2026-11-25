@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="HTML to MP4 Studio - render HTML menjadi video MP4 langsung di browser.">
+  <title>HTML to MP4 Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">▶</div>
+    <div class="brand-copy">
+      <strong>HTML to MP4 Studio</strong>
+      <span>Browser-based video renderer</span>
+    </div>
+    <span class="local-pill">LOCAL</span>
+  </header>
+
+  <main class="app">
+    <section class="intro">
+      <p class="eyebrow">CREATE • PREVIEW • EXPORT</p>
+      <h1>Ubah kode menjadi video.</h1>
+      <p class="muted">Tempel HTML kamu, lihat preview, lalu render menjadi MP4.</p>
+    </section>
+
+    <section class="panel editor-panel">
+      <div class="section-heading">
+        <div><span class="step">01</span><h2>HTML Editor</h2></div>
+        <button id="sampleBtn" class="quiet-button" type="button">Muat contoh</button>
+      </div>
+      <textarea id="htmlInput" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Kode HTML" placeholder="Tempel kode HTML di sini..."></textarea>
+      <div class="editor-actions">
+        <button id="previewBtn" class="secondary-button" type="button">Perbarui preview</button>
+        <button id="clearBtn" class="quiet-button" type="button">Bersihkan</button>
+      </div>
+    </section>
+
+    <section class="panel preview-panel">
+      <div class="section-heading">
+        <div><span class="step">02</span><h2>Live Preview</h2></div>
+        <span id="previewStatus" class="status-dot">Menunggu kode</span>
+      </div>
+      <div class="preview-frame-wrap">
+        <iframe id="previewFrame" title="Preview HTML" sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
+      <p class="hint">Preview memakai rasio video yang dipilih. Animasi CSS dan JavaScript sederhana dapat direkam.</p>
+    </section>
+
+    <section class="panel settings-panel">
+      <div class="section-heading">
+        <div><span class="step">03</span><h2>Pengaturan video</h2></div>
+      </div>
+      <div class="settings-grid">
+        <label>Resolusi
+          <select id="resolution">
+            <option value="854x480">480p (854 × 480)</option>
+            <option value="1280x720" selected>720p (1280 × 720)</option>
+            <option value="1920x1080">1080p (1920 × 1080)</option>
+          </select>
+        </label>
+        <label>Rasio aspek
+          <select id="ratio">
+            <option value="16:9" selected>16:9 Landscape</option>
+            <option value="9:16">9:16 Portrait</option>
+            <option value="1:1">1:1 Square</option>
+            <option value="4:5">4:5 Portrait</option>
+          </select>
+        </label>
+        <label>FPS
+          <select id="fps">
+            <option value="24">24 FPS</option>
+            <option value="30" selected>30 FPS</option>
+            <option value="60">60 FPS</option>
+          </select>
+        </label>
+        <label>Durasi
+          <select id="duration">
+            <option value="5">5 detik</option>
+            <option value="10" selected>10 detik</option>
+            <option value="15">15 detik</option>
+            <option value="30">30 detik</option>
+          </select>
+        </label>
+      </div>
+      <div class="resolution-note" id="resolutionNote">Output: 1280 × 720 px</div>
+    </section>
+
+    <section class="panel export-panel">
+      <div class="section-heading">
+        <div><span class="step">04</span><h2>Render video</h2></div>
+        <span class="format-tag">MP4</span>
+      </div>
+      <p class="muted small">Proses berjalan di browser. Jangan tutup tab selama render dan konversi berlangsung.</p>
+      <button id="renderBtn" class="primary-button" type="button">▶ &nbsp; Render MP4</button>
+      <div id="progressArea" class="progress-area" hidden>
+        <div class="progress-meta"><span id="progressLabel">Menyiapkan...</span><span id="progressPercent">0%</span></div>
+        <div class="progress-track"><div id="progressBar"></div></div>
+      </div>
+      <p id="message" class="message" role="status">Siap. Masukkan kode HTML untuk memulai.</p>
+      <div id="downloadArea" class="download-area" hidden>
+        <video id="resultVideo" controls playsinline></video>
+        <a id="downloadLink" class="download-button" download="html-to-mp4.mp4">⬇ Download MP4</a>
+      </div>
+    </section>
+
+    <section class="notice">
+      <strong>Catatan kompatibilitas</strong>
+      <p>MP4 dibuat dengan FFmpeg.wasm setelah browser merekam frame ke WebM. Render 1080p/60 FPS dapat berat di HP. Mulai dengan 720p, 30 FPS, dan 5–10 detik.</p>
+      <p>Konten dari situs luar, gambar lintas domain, audio, video, dan animasi WebGL mungkin tidak tertangkap sempurna. Halaman ini memproses kode secara lokal di browser, tetapi library render dimuat dari CDN.</p>
+    </section>
+  </main>
+
+  <footer>HTML to MP4 Studio <span>•</span> GitHub Pages</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
